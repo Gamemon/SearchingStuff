@@ -29,15 +29,37 @@ public class SearchForADoc{
     //Find # (indexOf)
     //if none go to next line, if some see if matching, if not go to next line
     //Finish if none left
+
+    ArrayList<Article> artsy = new ArrayList<Article>();
+    String tempTitle = "";
+    String tempContents = "";
+    
     String line = "";
+    int index = -1;
     boolean checker = true;
     while(checker){
+      tempTitle = "";
       if ((line = br.readLine()) != null){
-        if (line.indexOf("##") != -1){
-          
-        } else {
-          
+        if ((index = line.indexOf("#")) != -1){
+          line = line.substring(index+2);
+          index = line.indexOf("#");
+          line = line.substring(0, index); //Create title line!
+          tempTitle = line;
+          tempContents = "";
+          boolean checker2 = true; // get the contents of the article until next #'s are reached.
+          while(checker2){
+            if ((index = line.indexOf("#")) == -1){
+              tempContents = tempContents + line;
+            } else {
+              checker2 = false;
+              Article tempArt = new Article(tempTitle, tempContents);
+              artsy.add(tempArt);
+            }
+          }
         }
+      } else {
+        checker = false;
+        return artsy;
       }
     }
     
