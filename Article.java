@@ -3,10 +3,9 @@ public class Article{
   private String AName = "";
   private String AContents = "";
   private int APriority;
-  public Article(String name, String contents, int priority){
+  public Article(String name, String contents){
     AName = name;
     AContents = contents;
-    APriority = priority;
   }
 
   public String getName(){
@@ -19,5 +18,9 @@ public class Article{
 
   public int getPriority(){
     return APriority;
+  }
+
+  public void setPriority(int prio){
+    APriority = prio;
   }
 }
