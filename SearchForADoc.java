@@ -9,21 +9,39 @@ public class SearchForADoc{
     docName = doc;
   }
   public void search(String specificDoc){
-
-    try{
-      BufferedReader br = new BufferedReader(docName);
-    } catch(FileNotFoundException e){
-      e.printStackTrace();
-    }
-    //Line by line
-    //Find # (indexOf)
-    //if none go to next line, if some see if matching, if not go to next line
-    //Finish if none left
+    ArrayList<Article> art = createArt();
+    
     
     boolean checker = true;
     while(checker){
       
     }
+  }
+
+  public ArrayList<Article> createArt(){
+    try{
+      BufferedReader br = new BufferedReader(new FileReader(docName));
+    } catch(FileNotFoundException e){
+      e.printStackTrace();
+    }
+
+    //Line by line
+    //Find # (indexOf)
+    //if none go to next line, if some see if matching, if not go to next line
+    //Finish if none left
+    String line = "";
+    boolean checker = true;
+    while(checker){
+      if ((line = br.readLine()) != null){
+        if (line.indexOf("##") != -1){
+          
+        } else {
+          
+        }
+      }
+    }
+    
+    
   }
 
 
