@@ -8,15 +8,30 @@ public class SearchForADoc{
   public setTxtName(String doc){
     docName = doc;
   }
+  
+  /*
   public void search(String specificDoc){
     ArrayList<Article> art = createArt();
-    
     
     boolean checker = true;
     while(checker){
       
     }
   }
+  */
+
+
+  //Word that is searched for = goodWord
+  //loop through lines till you find matching initial word (indexOf != -1)
+  //USE THAT LINE - word,synonym,etc = lineSpecific
+  
+  //Check all contents of every article - match word, match synonyms (count!)
+  //Loop all articles
+  // Loop all words - count which word you're on
+  // if count = 1 (of lineSpecific) - that's matching word
+  // other is synonym
+  // using contentsofarticle.indexOf(wordofline)
+  // Mark priority level of given articles!!!
 
   public ArrayList<Article> createArt(){
     try{
