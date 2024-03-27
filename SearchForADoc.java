@@ -74,10 +74,10 @@ public class SearchForADoc{
         }
       } else {
         checker = false;
-        br.close();
-        return artsy;
       }
     }
+    br.close();
+    return artsy;
     
     
   }
