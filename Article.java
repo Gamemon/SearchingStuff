@@ -23,4 +23,9 @@ public class Article{
   public void setPriority(int prio){
     APriority = prio;
   }
+
+
+  public String toString(){
+    return "\n\nPriority level: " + APriority + "\nArticle Title: " + AName + "\nContents: \n\n" + AContents;
+  }
 }
