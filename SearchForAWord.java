@@ -28,10 +28,12 @@ public class SearchForAWord extends SearchForADoc{
     }
     br.close();
 
+    String concatPrint = "";
     //create priorities
     for (Article thingy : arts){
       if (thingy.indexOf(word1) != -1){
         thingy.setPriority(1);
+        concatPrint = thingy.toString();
       } else {
         boolean checker = true;
         while(checker){
@@ -48,9 +50,13 @@ public class SearchForAWord extends SearchForADoc{
     }
 
     //String concatenation with Article toString method
+   for(Article thingy : arts){
+     if (thingy.getPriority() = 2){
+       concatPrint = concatPrint + thingy.toString();
+     }
+   }
    
-   
-   
+   System.out.println(concatPrint);
   }
 
 
