@@ -28,22 +28,7 @@ public class SearchForAWord extends SearchForADoc{
 }
 
 
-/*
-puplic class LinearSearch(){    
-public static int linearSearch(Title, String word){    
-        for(String i=0;i<Title.length;i++){    
-            if(Title[i] == word){    
-                return i;
-            }
-          for(String j=0;j){
-          }
-                
-        }    
-        return -1;    
-    }    
 
-}
-  */
 
   
 
