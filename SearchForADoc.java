@@ -1,11 +1,11 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
+import java.util.ArrayList;
 public class SearchForADoc{
   private String docName = "";
   public SearchForADoc(String doc){
     docName = doc;
   }
-  public setTxtName(String doc){
+  public void setTxtName(String doc){
     docName = doc;
   }
   
@@ -34,8 +34,10 @@ public class SearchForADoc{
   // Mark priority level of given articles!!!
 
   public ArrayList<Article> createArt(){
+	  //System.out.println("Running createArt!");
+	  BufferedReader br = null;
     try{
-      BufferedReader br = new BufferedReader(new FileReader(docName));
+      br = new BufferedReader(new FileReader(docName));
     } catch(FileNotFoundException e){
       e.printStackTrace();
     }
@@ -52,10 +54,19 @@ public class SearchForADoc{
     String line = "";
     int index = -1;
     boolean checker = true;
+    try{
+		  line = br.readLine();
+	  } catch (IOException e) {
+		e.printStackTrace();
+	  }
     while(checker){
       tempTitle = "";
-      if ((line = br.readLine()) != null){
+      //System.out.println("Running wLoop in cA in SFAD!");
+      
+      if (line != null){
+		  //System.out.println("Line not null!");
         if ((index = line.indexOf("#")) != -1){
+			//System.out.println("Title Found!");
           line = line.substring(index+2);
           index = line.indexOf("#");
           line = line.substring(0, index); //Create title line!
@@ -63,20 +74,34 @@ public class SearchForADoc{
           tempContents = "";
           boolean checker2 = true; // get the contents of the article until next #'s are reached.
           while(checker2){
-            if ((index = line.indexOf("#")) == -1){
-              tempContents = tempContents + line;
-            } else {
+			try{
+				line = br.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+            //System.out.println("tempTitle and tempContents made!");
+            if (line == null || (index = line.indexOf("#")) != -1){
+				//System.out.println("tempTitle and tempContents made!");
+				//System.out.println(tempTitle + "\n" + tempContents);
               checker2 = false;
               Article tempArt = new Article(tempTitle, tempContents);
               artsy.add(tempArt);
-            }
+			} else if ((index = line.indexOf("#")) == -1){
+				tempContents = tempContents + "\n" + line;
+			}
           }
         }
       } else {
         checker = false;
       }
     }
-    br.close();
+    try{
+		br.close();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+    
+    //System.out.println("\n\n" + artsy);
     return artsy;
     
     
