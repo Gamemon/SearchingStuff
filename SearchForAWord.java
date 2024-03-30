@@ -4,54 +4,78 @@ import java.io.IOException;
 import java.util.*;
 import java.lang.*;
 import java.io.*;
-public class SearchForAWord extends SearchForADoc{
-  private word1;
-  private titleSyn;
+public class SearchForAWord{
+  private String word1;
+  private String titleSyn;
   public SearchForAWord(String word, String syn){
     word1 = word;
     titleSyn = syn;
   }
   public void search(ArrayList<Article> arts){
+	  //System.out.println("Search running...");
     String line = "";
+    BufferedReader br = null;
     try{
-      BufferedReader br = new BufferedReader(new FileReader(titleSyn));
+      br = new BufferedReader(new FileReader(titleSyn));
     } catch(FileNotFoundException e){
       e.printStackTrace();
     }
 
     //Find synonym line
-    while((line = br.readLine()) != null){
+    
+    
+    while(line != null){
+		try{
+		  line = br.readLine();
+	  } catch (IOException e) {
+		e.printStackTrace();
+	  }
       String tempWord = line.substring(0, line.indexOf(","));
+      //System.out.println(tempWord);
       if (tempWord.equals(word1)){
+		  //System.out.println("Found the word in synlist");
         break;
       }
     }
-    br.close();
+    try{
+		br.close();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
 
     String concatPrint = "";
     //create priorities
     for (Article thingy : arts){
-      if (thingy.indexOf(word1) != -1){
+      if (thingy.getContents().indexOf(word1) != -1){
         thingy.setPriority(1);
         concatPrint = thingy.toString();
       } else {
         boolean checker = true;
         while(checker){
-          line = line.substring(line.indexOf(",")+1);
-          String tempWord = "";
-          if ((tempWord.equals(line.substring(0, line.indexOf(","))))){
-            thingy.setPriority(2);
-          }
-          if (line.indexOf(",") == -1){
-            checker = false;
-          }
+          
+          //Assuming there is always at least one synonym in a line of the text file
+			line = line.substring(line.indexOf(",") + 1);
+			if (line.indexOf(",") == -1){
+				if (thingy.getContents().indexOf(line) != -1){
+					thingy.setPriority(2);
+					checker = false;
+				} else {
+					checker = false;
+				}
+			} else {
+				if ((thingy.getContents().indexOf(line.substring(0, line.indexOf(",")))) != -1){
+					thingy.setPriority(2);
+					checker = false;
+				}
+			}
+          
         }
       }
     }
 
     //String concatenation with Article toString method
    for(Article thingy : arts){
-     if (thingy.getPriority() = 2){
+     if (thingy.getPriority() == 2){
        concatPrint = concatPrint + thingy.toString();
      }
    }
